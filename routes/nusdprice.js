@@ -9,7 +9,7 @@ const fs = require('fs')
 let MANUAL_PRICE = 0
 //MANUAL_PRICE = 1 //Uncomment this line if you dont want to use manual mode
 
-router.get('/', async function(req, res, next) {
+router.get('/:pair', async function(req, res, next) {
     let timestamp = moment().unix();
     if (MANUAL_PRICE) {
         res.json({"exchange":"manual","price":MANUAL_PRICE,timestamp})
@@ -21,7 +21,7 @@ router.get('/', async function(req, res, next) {
         return;
     }
     let exchange = require(__dirname + "/../exchange_modules/_" + exchange_name + ".js")
-    let price = await exchange.fetchPrice();
+    let price = await exchange.fetchPrice(req.params.pair);
     if (!price) {
         console.log("Error during fetching price!");
         return;
