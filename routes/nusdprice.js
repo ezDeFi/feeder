@@ -20,24 +20,7 @@ app.get("/config", async function (req, res) {
 <br>Password: <input name=password id=password placeholder="Enter Password" onchange="storePassword()"></input>
 <script>
     document.getElementById("submit_price").onclick = function () {
-        document.getElementById("submit_price").disabled = true;
-        fetch("/nusd-price/setmanualprice", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({manual_price:document.getElementById("manual_price").value, password: document.getElementById("password").value})
-          }).catch(err => {
-            document.getElementById("submit_price").disabled = false;
-            alert("Some error happened");
-          }).then (res => {
-              response = res.clone()
-              return response.text();
-          }).then(res => {
-            document.getElementById("submit_price").disabled = false;
-            getPrice();
-            alert(res);
-          });
+        updateManualPrice();
     }
     document.getElementById("cancel_price").onclick = function () {
         document.getElementById("cancel_price").disabled = true;
@@ -58,6 +41,32 @@ app.get("/config", async function (req, res) {
           getPrice();
           alert(res);
         });
+    }
+    updateManualPrice = function() {
+        document.getElementById("submit_price").disabled = true;
+        fetch("/nusd-price/setmanualprice", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({manual_price:document.getElementById("manual_price").value, password: document.getElementById("password").value})
+          }).catch(err => {
+            document.getElementById("submit_price").disabled = false;
+            alert("Some error happened");
+            setTimeout(() => {
+                document.getElementById("manual_price").focus()
+            }, 200);
+          }).then (res => {
+              response = res.clone()
+              return response.text();
+          }).then(res => {
+            document.getElementById("submit_price").disabled = false;
+            getPrice();
+            alert(res);
+            setTimeout(() => {
+                document.getElementById("manual_price").focus()
+            }, 200);
+          });
     }
     getPrice = async function() {
         document.getElementById("manual_price").disabled = true;
@@ -81,7 +90,15 @@ app.get("/config", async function (req, res) {
     }
     //Update password on start
     document.getElementById("password").value = localStorage.getItem("password");
-</script>
+    //Listening to input enter
+    document.getElementById("manual_price")
+    .addEventListener("keyup", function(event) {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+            updateManualPrice();
+        }
+    });
+    </script>
 
     `
     res.send(html)
