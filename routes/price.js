@@ -24,7 +24,7 @@ app.get("/config", async function (req, res) {
     }
     document.getElementById("cancel_price").onclick = function () {
         document.getElementById("cancel_price").disabled = true;
-        fetch("/nusd-price/setmanualprice", {
+        fetch("/price/setmanualprice", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -44,7 +44,7 @@ app.get("/config", async function (req, res) {
     }
     updateManualPrice = function() {
         document.getElementById("submit_price").disabled = true;
-        fetch("/nusd-price/setmanualprice", {
+        fetch("/price/setmanualprice", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -70,7 +70,7 @@ app.get("/config", async function (req, res) {
     }
     getPrice = async function() {
         document.getElementById("manual_price").disabled = true;
-        fetch("/nusd-price/getprice", {
+        fetch("/price/getprice", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
