@@ -33,7 +33,11 @@ app.get("/:pair/manual", async function (req, res) {
     }
     document.getElementById("cancel_price").onclick = function () {
         document.getElementById("cancel_price").disabled = true;
+<<<<<<< HEAD:routes/price.js
         fetch("/price/`+ req.params.pair +`/setmanualprice", {
+=======
+        fetch("/price/setmanualprice", {
+>>>>>>> fc3ac5978b4308598119eff31df5f0f489669bf4:routes/price.js
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -53,7 +57,11 @@ app.get("/:pair/manual", async function (req, res) {
     }
     updateManualPrice = function() {
         document.getElementById("submit_price").disabled = true;
+<<<<<<< HEAD:routes/price.js
         fetch("/price/`+ req.params.pair +`/setmanualprice", {
+=======
+        fetch("/price/setmanualprice", {
+>>>>>>> fc3ac5978b4308598119eff31df5f0f489669bf4:routes/price.js
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -79,7 +87,11 @@ app.get("/:pair/manual", async function (req, res) {
     }
     getPrice = async function() {
         document.getElementById("manual_price").disabled = true;
+<<<<<<< HEAD:routes/price.js
         fetch("/price/`+ req.params.pair +`/getprice", {
+=======
+        fetch("/price/getprice", {
+>>>>>>> fc3ac5978b4308598119eff31df5f0f489669bf4:routes/price.js
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
