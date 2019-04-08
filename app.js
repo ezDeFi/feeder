@@ -4,7 +4,7 @@ var express = require('express'),
     cookieParser = require('cookie-parser'),
     cors = require('cors');
 var routes = require('./routes/index'),
-    nusdprice = require('./routes/nusdprice');
+    price = require('./routes/price');
 
 require('dotenv').config()
 //var users = require('./routes/users');
@@ -28,7 +28,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/nusd-price', nusdprice);
+app.use('/price', price);
 //app.use('/users', users);
 
 // catch 404 and forward to error handler

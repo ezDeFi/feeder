@@ -1,0 +1,8 @@
+[
+	{
+		"pair": "PAX_USDT",
+		"exchanges": [
+			{"name": "binance", "path": "_binance.js"}
+		]
+	}
+]
