@@ -4,5 +4,11 @@
 		"exchanges": [
 			{"name": "binance", "path": "_binance.js"}
 		]
+	},
+	{
+		"pair": "NUSD_USD",
+		"exchanges": [
+			{"name": "fake", "path": "fake_nusd_usd.js"}
+		]
 	}
 ]
