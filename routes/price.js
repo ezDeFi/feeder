@@ -27,11 +27,13 @@ app.get("/:pair/manual", async function (req, res) {
 <button id=submit_price>Set Manual Price</button>    
 <button id=cancel_price>Cancel Manual Price</button>
 <br>Password: <input name=password id=password placeholder="Enter Password" onchange="storePassword()"></input>
+<div id=request_status style="margin-top: 20px; color: green"></div>
 <script>
     document.getElementById("submit_price").onclick = function () {
         updateManualPrice();
     }
     document.getElementById("cancel_price").onclick = function () {
+        document.getElementById("request_status").textContent = "Processing..."
         document.getElementById("cancel_price").disabled = true;
         fetch("/price/`+ req.params.pair +`/setmanualprice", {
             method: "POST",
@@ -41,17 +43,18 @@ app.get("/:pair/manual", async function (req, res) {
             body: JSON.stringify({manual_price:0, password: document.getElementById("password").value})
           }).catch(err => {
             document.getElementById("cancel_price").disabled = false;
-            alert("Some error happened");
+            document.getElementById("request_status").textContent = "Some error happened"
           }).then (res => {
             response = res.clone()
             return response.text();
         }).then(res => {
           document.getElementById("cancel_price").disabled = false;
           getPrice();
-          alert(res);
+          document.getElementById("request_status").textContent = res
         });
     }
     updateManualPrice = function() {
+        document.getElementById("request_status").textContent = "Processing..."
         document.getElementById("submit_price").disabled = true;
         fetch("/price/`+ req.params.pair +`/setmanualprice", {
             method: "POST",
@@ -61,7 +64,7 @@ app.get("/:pair/manual", async function (req, res) {
             body: JSON.stringify({manual_price:document.getElementById("manual_price").value, password: document.getElementById("password").value})
           }).catch(err => {
             document.getElementById("submit_price").disabled = false;
-            alert("Some error happened");
+            document.getElementById("request_status").textContent = "Some error happened"
             setTimeout(() => {
                 document.getElementById("manual_price").focus()
             }, 200);
@@ -71,7 +74,7 @@ app.get("/:pair/manual", async function (req, res) {
           }).then(res => {
             document.getElementById("submit_price").disabled = false;
             getPrice();
-            alert(res);
+            document.getElementById("request_status").textContent = res
             setTimeout(() => {
                 document.getElementById("manual_price").focus()
             }, 200);
@@ -85,7 +88,7 @@ app.get("/:pair/manual", async function (req, res) {
                 "Content-Type": "application/json",
             },
           }).catch(err => {
-            alert("Some error happened");
+            document.getElementById("request_status").textContent = "Some error happened"
           }).then (res => {
             response = res.clone()
             return response.text();
