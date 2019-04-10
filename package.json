@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "start-only": "node ./bin/www",
     "start": "opn http://localhost:3000/price/manual & node ./bin/www"
   },
   "dependencies": {
