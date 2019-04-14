@@ -8,7 +8,7 @@
 	{
 		"pair": "NUSD_USD",
 		"exchanges": [
-			{"name": "fake", "path": "fake_nusd_usd.js"}
+			{"name": "random", "path": "random_nusd_usd.js"}
 		]
 	}
 ]
