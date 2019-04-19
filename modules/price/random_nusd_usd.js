@@ -6,7 +6,14 @@ var result = 1.0;
 
 module.exports = {
 	fetchPrice: async function (pair) {
-		result += Math.random() * 0.01 - 0.005;
-		return result;
+		if (Math.random() < 0.3) {
+			var price = result + Math.random() * 0.2 - 0.1;
+			console.log(price + ' (outlier)');
+			return price;
+		} else {
+			result += Math.random() * 0.01 - 0.005;
+			console.log(result);
+			return result
+		}
 	}
 }
